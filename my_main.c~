@@ -64,42 +64,9 @@ void my_main( int polygons ) {
   s = new_stack();
   tmp = new_matrix(4, 1000);
   clear_screen( t );
-  
+
   for (i=0;i<lastop;i++) {  
     switch (op[i].opcode) {
-      //OUR CODE HERE
-    case PUSH:
-      push(s);
-      printf("Push");
-      break;
-    case POP:
-      pop(s);
-      printf("Pop");
-      break;
-    case ROTATE:
-      break;
-    case MOVE:
-      break;
-    case SCALE:
-      break;
-    case BOX:
-      break;
-    case SPHERE:
-      add_sphere(tmp,
-		 op[i].op.sphere.d[0], op[i].op.sphere.d[1], 
-		 op[i].op.sphere.d[2], op[i].op.sphere.r);
-      matrix_mult( s->data[s->top], tmp );
-      draw_polygons( tmp, t, g );
-      break;
-    case TORUS:
-      break;
-    case LINE:
-      break;
-    case SAVE:
-      break;
-    case DISPLAY:
-      break;
-      
     }
   }
 }
