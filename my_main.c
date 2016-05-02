@@ -61,8 +61,8 @@ void my_main( int polygons ) {
   screen t;
   color g;
   
-  g.red = 150;
-  g.blue = 150;
+  g.red = 0;
+  g.blue = 0;
   g.green = 150;
   s = new_stack();
   tmp = new_matrix(4, 1000);
@@ -83,14 +83,20 @@ void my_main( int polygons ) {
       if (op[lastop].op.rotate.axis == 0){
 	tmp = make_rotX(op[i].op.rotate.degrees * (180 / M_PI) );
 	matrix_mult( s->data[s->top], tmp );
+	copy_matrix( tmp, s->data[s->top] );
+	tmp->lastcol=0;
       }
       if (op[lastop].op.rotate.axis == 1){
 	tmp = make_rotY(op[i].op.rotate.degrees * (180 / M_PI) );
 	matrix_mult( s->data[s->top], tmp );
+	copy_matrix( tmp, s->data[s->top] );
+	tmp->lastcol=0;
       }
       if (op[lastop].op.rotate.axis == 2){
 	tmp = make_rotZ(op[i].op.rotate.degrees * (180 / M_PI) );
 	matrix_mult( s->data[s->top], tmp );
+	copy_matrix( tmp, s->data[s->top] );
+	tmp->lastcol=0;
       }
       break;
     case MOVE:
@@ -98,14 +104,16 @@ void my_main( int polygons ) {
 			   op[i].op.move.d[1],
 			   op[i].op.move.d[2]);
       matrix_mult( s->data[s->top], tmp );
-      draw_polygons( tmp, t, g );
+      copy_matrix( tmp, s->data[s->top] );
+      tmp->lastcol=0;
       break;
     case SCALE:
       tmp = make_scale(op[i].op.scale.d[0],
 		       op[i].op.scale.d[1],
 		       op[i].op.scale.d[2]);
       matrix_mult( s->data[s->top], tmp );
-      draw_polygons( tmp, t, g );
+      copy_matrix( tmp, s->data[s->top] );
+      tmp->lastcol=0;
       break;
     case BOX:
       add_box(tmp,
@@ -147,7 +155,6 @@ void my_main( int polygons ) {
       save_extension(t, op[i].op.save.p->name);
       break;
     case DISPLAY:
-      printf("inside display!\n");
       display(t);
       break;
     }
