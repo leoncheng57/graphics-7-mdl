@@ -63,7 +63,7 @@ void my_main( int polygons ) {
   
   g.red = 0;
   g.blue = 0;
-  g.green = 150;
+  g.green = 255;
   s = new_stack();
   tmp = new_matrix(4, 1000);
   clear_screen( t );
@@ -81,22 +81,22 @@ void my_main( int polygons ) {
       break;
     case ROTATE:
       if (op[lastop].op.rotate.axis == 0){
-	tmp = make_rotX(op[i].op.rotate.degrees * (180 / M_PI) );
+	tmp = make_rotX(op[i].op.rotate.degrees * (M_PI / 180) );
 	matrix_mult( s->data[s->top], tmp );
 	copy_matrix( tmp, s->data[s->top] );
-	tmp->lastcol=0;
+	//tmp->lastcol=0;
       }
       if (op[lastop].op.rotate.axis == 1){
-	tmp = make_rotY(op[i].op.rotate.degrees * (180 / M_PI) );
+	tmp = make_rotY(op[i].op.rotate.degrees * (M_PI / 180) );
 	matrix_mult( s->data[s->top], tmp );
 	copy_matrix( tmp, s->data[s->top] );
-	tmp->lastcol=0;
+	//tmp->lastcol=0;
       }
       if (op[lastop].op.rotate.axis == 2){
-	tmp = make_rotZ(op[i].op.rotate.degrees * (180 / M_PI) );
+	tmp = make_rotZ(op[i].op.rotate.degrees * (M_PI / 180) );
 	matrix_mult( s->data[s->top], tmp );
 	copy_matrix( tmp, s->data[s->top] );
-	tmp->lastcol=0;
+	//tmp->lastcol=0;
       }
       break;
     case MOVE:
@@ -105,7 +105,7 @@ void my_main( int polygons ) {
 			   op[i].op.move.d[2]);
       matrix_mult( s->data[s->top], tmp );
       copy_matrix( tmp, s->data[s->top] );
-      tmp->lastcol=0;
+      //tmp->lastcol=0;
       break;
     case SCALE:
       tmp = make_scale(op[i].op.scale.d[0],
@@ -113,7 +113,7 @@ void my_main( int polygons ) {
 		       op[i].op.scale.d[2]);
       matrix_mult( s->data[s->top], tmp );
       copy_matrix( tmp, s->data[s->top] );
-      tmp->lastcol=0;
+      //tmp->lastcol=0;
       break;
     case BOX:
       add_box(tmp,
