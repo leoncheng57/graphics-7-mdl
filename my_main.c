@@ -81,15 +81,15 @@ void my_main( int polygons ) {
       break;
     case ROTATE:
       if (op[lastop].op.rotate.axis == 0){
-	tmp = make_rotX(op[i].op.rotate.degrees);
+	tmp = make_rotX(op[i].op.rotate.degrees * (180 / M_PI) );
 	matrix_mult( s->data[s->top], tmp );
       }
       if (op[lastop].op.rotate.axis == 1){
-	tmp = make_rotY(op[i].op.rotate.degrees);
+	tmp = make_rotY(op[i].op.rotate.degrees * (180 / M_PI) );
 	matrix_mult( s->data[s->top], tmp );
       }
       if (op[lastop].op.rotate.axis == 2){
-	tmp = make_rotZ(op[i].op.rotate.degrees);
+	tmp = make_rotZ(op[i].op.rotate.degrees * (180 / M_PI) );
 	matrix_mult( s->data[s->top], tmp );
       }
       break;
