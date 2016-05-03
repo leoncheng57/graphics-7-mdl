@@ -72,34 +72,36 @@ void my_main( int polygons ) {
     switch (op[i].opcode) {
       //OUR CODE HERE
     case PUSH:
+      printf("Push\n");
       push(s);
-      printf("Push");
       break;
     case POP:
+      printf("Pop\n");
       pop(s);
-      printf("Pop");
       break;
-    case ROTATE:
-      if (op[lastop].op.rotate.axis < 0.1){
+
+    case ROTATE:     
+      if (op[lastop].op.rotate.axis < 0.1) {
+	printf("xrotate\n");
 	tmp = make_rotX(op[i].op.rotate.degrees * (M_PI / 180) );
-	matrix_mult( s->data[s->top], tmp );
-	copy_matrix( tmp, s->data[s->top] );
 	//tmp->lastcol=0;
       }
       else if (op[lastop].op.rotate.axis < 1.1){
+	printf("yrotate\n");
 	tmp = make_rotY(op[i].op.rotate.degrees * (M_PI / 180) );
-	matrix_mult( s->data[s->top], tmp );
-	copy_matrix( tmp, s->data[s->top] );
 	//tmp->lastcol=0;
       }
       else if (op[lastop].op.rotate.axis < 2.1){
+	printf("zrotate\n");
 	tmp = make_rotZ(op[i].op.rotate.degrees * (M_PI / 180) );
-	matrix_mult( s->data[s->top], tmp );
-	copy_matrix( tmp, s->data[s->top] );
 	//tmp->lastcol=0;
       }
+      matrix_mult( s->data[s->top], tmp );
+      copy_matrix( tmp, s->data[s->top] );
       break;
+
     case MOVE:
+      printf("move\n");
       tmp = make_translate(op[i].op.move.d[0],
 			   op[i].op.move.d[1],
 			   op[i].op.move.d[2]);
@@ -107,7 +109,9 @@ void my_main( int polygons ) {
       copy_matrix( tmp, s->data[s->top] );
       //tmp->lastcol=0;
       break;
+
     case SCALE:
+      printf("box\n");
       tmp = make_scale(op[i].op.scale.d[0],
 		       op[i].op.scale.d[1],
 		       op[i].op.scale.d[2]);
@@ -115,7 +119,9 @@ void my_main( int polygons ) {
       copy_matrix( tmp, s->data[s->top] );
       //tmp->lastcol=0;
       break;
+
     case BOX:
+      printf("box\n");
       add_box(tmp,
 	      op[i].op.box.d0[0],
 	      op[i].op.box.d0[1],
@@ -127,7 +133,9 @@ void my_main( int polygons ) {
       draw_polygons( tmp, t, g );
       ident(tmp);
       break;
+
     case SPHERE:
+      printf("sphere\n");
       add_sphere(tmp,
 		 op[i].op.sphere.d[0],
 		 op[i].op.sphere.d[1], 
@@ -138,31 +146,42 @@ void my_main( int polygons ) {
       draw_polygons( tmp, t, g );
       ident(tmp);
       break;
+
     case TORUS:
+      printf("torus\n");            
       add_torus(tmp,
 		op[i].op.torus.d[0],
 		op[i].op.torus.d[1],
 		op[i].op.torus.d[2],
-		op[i].op.torus.r0,op[i].op.torus.r1,
+		op[i].op.torus.r0,
+		op[i].op.torus.r1,
 		10);
       matrix_mult( s->data[s->top], tmp );
       draw_polygons( tmp, t, g );
       ident(tmp);
       break;
+
     case LINE:
+      printf("line\n");            
       add_edge(tmp,
-	       op[i].op.line.p0[0],op[i].op.line.p0[1],
+	       op[i].op.line.p0[0],
 	       op[i].op.line.p0[1],
-	       op[i].op.line.p1[0],op[i].op.line.p1[1],
-	       op[i].op.line.p1[1]);
+	       op[i].op.line.p0[2],
+	       op[i].op.line.p1[0],
+	       op[i].op.line.p1[1],
+	       op[i].op.line.p1[2]);
       matrix_mult( s->data[s->top], tmp );
       draw_polygons( tmp, t, g );
       ident(tmp);
       break;
+
     case SAVE:
+      printf("save\n");      
       save_extension(t, op[i].op.save.p->name);
       break;
+
     case DISPLAY:
+      printf("display\n");      
       display(t);
       break;
     }
