@@ -117,9 +117,11 @@ void my_main( int polygons ) {
       break;
     case BOX:
       add_box(tmp,
-	      op[i].op.box.d0[0],op[i].op.box.d0[1],
+	      op[i].op.box.d0[0],
+	      op[i].op.box.d0[1],
 	      op[i].op.box.d0[2],
-	      op[i].op.box.d1[0],op[i].op.box.d1[1],
+	      op[i].op.box.d1[0],
+	      op[i].op.box.d1[1],
 	      op[i].op.box.d1[2]);
       matrix_mult( s->data[s->top], tmp );
       draw_polygons( tmp, t, g );
@@ -127,8 +129,10 @@ void my_main( int polygons ) {
       break;
     case SPHERE:
       add_sphere(tmp,
-		 op[i].op.sphere.d[0], op[i].op.sphere.d[1], 
-		 op[i].op.sphere.d[2], op[i].op.sphere.r, 
+		 op[i].op.sphere.d[0],
+		 op[i].op.sphere.d[1], 
+		 op[i].op.sphere.d[2],
+		 op[i].op.sphere.r, 
 		 10);
       matrix_mult( s->data[s->top], tmp );
       draw_polygons( tmp, t, g );
