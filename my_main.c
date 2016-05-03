@@ -80,19 +80,19 @@ void my_main( int polygons ) {
       printf("Pop");
       break;
     case ROTATE:
-      if (op[lastop].op.rotate.axis == 0){
+      if (op[lastop].op.rotate.axis < 0.1){
 	tmp = make_rotX(op[i].op.rotate.degrees * (M_PI / 180) );
 	matrix_mult( s->data[s->top], tmp );
 	copy_matrix( tmp, s->data[s->top] );
 	//tmp->lastcol=0;
       }
-      if (op[lastop].op.rotate.axis == 1){
+      else if (op[lastop].op.rotate.axis < 1.1){
 	tmp = make_rotY(op[i].op.rotate.degrees * (M_PI / 180) );
 	matrix_mult( s->data[s->top], tmp );
 	copy_matrix( tmp, s->data[s->top] );
 	//tmp->lastcol=0;
       }
-      if (op[lastop].op.rotate.axis == 2){
+      else if (op[lastop].op.rotate.axis < 2.1){
 	tmp = make_rotZ(op[i].op.rotate.degrees * (M_PI / 180) );
 	matrix_mult( s->data[s->top], tmp );
 	copy_matrix( tmp, s->data[s->top] );
@@ -123,6 +123,7 @@ void my_main( int polygons ) {
 	      op[i].op.box.d1[2]);
       matrix_mult( s->data[s->top], tmp );
       draw_polygons( tmp, t, g );
+      ident(tmp);
       break;
     case SPHERE:
       add_sphere(tmp,
@@ -131,6 +132,7 @@ void my_main( int polygons ) {
 		 10);
       matrix_mult( s->data[s->top], tmp );
       draw_polygons( tmp, t, g );
+      ident(tmp);
       break;
     case TORUS:
       add_torus(tmp,
@@ -141,6 +143,7 @@ void my_main( int polygons ) {
 		10);
       matrix_mult( s->data[s->top], tmp );
       draw_polygons( tmp, t, g );
+      ident(tmp);
       break;
     case LINE:
       add_edge(tmp,
@@ -150,6 +153,7 @@ void my_main( int polygons ) {
 	       op[i].op.line.p1[1]);
       matrix_mult( s->data[s->top], tmp );
       draw_polygons( tmp, t, g );
+      ident(tmp);
       break;
     case SAVE:
       save_extension(t, op[i].op.save.p->name);
