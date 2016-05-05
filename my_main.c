@@ -84,17 +84,17 @@ void my_main( int polygons ) {
       if (op[i].op.rotate.axis < 0.1) {
 	printf("xrotate\n");
 	tmp = make_rotX(op[i].op.rotate.degrees * (M_PI / 180) );
-	//tmp->lastcol=0;
+	tmp->lastcol=0;
       }
       else if (op[i].op.rotate.axis < 1.1){
 	printf("yrotate\n");
 	tmp = make_rotY(op[i].op.rotate.degrees * (M_PI / 180) );
-	//tmp->lastcol=0;
+	tmp->lastcol=0;
       }
       else if (op[i].op.rotate.axis < 2.1){
 	printf("zrotate\n");
 	tmp = make_rotZ(op[i].op.rotate.degrees * (M_PI / 180) );
-	//tmp->lastcol=0;
+	tmp->lastcol=0;
       }
       matrix_mult( s->data[s->top], tmp );
       copy_matrix( tmp, s->data[s->top] );
@@ -107,7 +107,7 @@ void my_main( int polygons ) {
 			   op[i].op.move.d[2]);
       matrix_mult( s->data[s->top], tmp );
       copy_matrix( tmp, s->data[s->top] );
-      //tmp->lastcol=0;
+      tmp->lastcol=0;
       break;
 
     case SCALE:
@@ -117,7 +117,7 @@ void my_main( int polygons ) {
 		       op[i].op.scale.d[2]);
       matrix_mult( s->data[s->top], tmp );
       copy_matrix( tmp, s->data[s->top] );
-      //tmp->lastcol=0;
+      tmp->lastcol=0;
       break;
 
     case BOX:
